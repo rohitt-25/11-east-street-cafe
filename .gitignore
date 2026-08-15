@@ -1,0 +1,4 @@
+node_modules
+dist
+.brief
+.DS_Store

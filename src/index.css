@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+@theme {
+  --color-page: #FEF3C7;
+  --color-surface: #FFFFFF;
+  --color-ink: #78350F;
+  --color-muted-surface: #EDEEF0;
+  --color-muted-ink: #64748B;
+  --color-hairline: #FDE68A;
+  --color-brand: #92400E;
+  --color-brand-soft: #B45309;
+
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 24px;
+  --spacing-lg: 32px;
+  --spacing-xl: 48px;
+  --spacing-2xl: 64px;
+  --spacing-3xl: 96px;
+
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+
+  --shadow-warm: 0 2px 6px rgba(120, 53, 15, 0.06), 0 12px 32px rgba(120, 53, 15, 0.08);
+  --shadow-warm-lift: 0 4px 10px rgba(120, 53, 15, 0.10), 0 20px 44px rgba(120, 53, 15, 0.14);
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: #FEF3C7;
+  color: #78350F;
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+/* SIGNATURE DETAIL — fine film-grain paper texture at ~3%, sitting above the
+   cream background and behind all content. Single inline SVG turbulence layer,
+   no image request. */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 160px 160px;
+}
+
+/* IMAGE ART DIRECTION — warm, richly saturated grading on the three real photos
+   so they read as appetite-driving, not flat listing shots. */
+.photo-graded {
+  filter: saturate(1.18) contrast(1.1) brightness(1.02) sepia(0.1)
+    hue-rotate(-4deg);
+}
+
+/* FAQ answer crossfade — opacity + max-height wrapper only, never raw height. */
+.faq-answer {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 280ms cubic-bezier(0.33, 1, 0.68, 1),
+    opacity 280ms cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.faq-answer[data-open='true'] {
+  max-height: 320px;
+  opacity: 1;
+}
+
+/* Visible warm-brown focus ring on every interactive element. Never outline:none. */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible,
+iframe:focus-visible {
+  outline: 3px solid #92400E;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* On the dark hero scrim the brown ring needs a cream halo to stay visible. */
+.hero a:focus-visible {
+  outline-color: #FDE68A;
+  box-shadow: 0 0 0 6px rgba(146, 64, 14, 0.65);
+}
+
+.card-hover {
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card-hover:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-warm-lift);
+}
+
+.btn-lift {
+  transition: filter 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn-lift:hover {
+  filter: brightness(1.1);
+  box-shadow: var(--shadow-warm-lift);
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-hover:hover,
+  .btn-lift:hover {
+    transform: none;
+  }
+
+  .faq-answer {
+    transition: none;
+  }
+}
